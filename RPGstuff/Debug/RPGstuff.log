@@ -1,0 +1,12 @@
+﻿  fireMagic.cpp
+  gameplay.cpp
+C:\Users\Ducky\Homework 2020\RPGstuff\fireMagic.h(9,1): error C2504: 'magicT': base class undefined
+  magic.cpp
+C:\Users\Ducky\Homework 2020\RPGstuff\fireMagic.h(9,1): error C2504: 'magicT': base class undefined
+  player.cpp
+C:\Users\Ducky\Homework 2020\RPGstuff\fireMagic.h(9,1): error C2504: 'magicT': base class undefined
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(129,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(149,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Source.cpp
+C:\Users\Ducky\Homework 2020\RPGstuff\fireMagic.h(9,1): error C2504: 'magicT': base class undefined
+  Generating Code...
