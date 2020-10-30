@@ -13,6 +13,7 @@ enemy::enemy()
 	name = "bad guy"; //set up something for rng list of names
 	equippedWeaponPTR = new weapon(25, 50, 2, 85, "Sword");
 	damage = equippedWeaponPTR->getDamage();
+	isBurned = false;
 
 }
 
@@ -57,6 +58,11 @@ string enemy::getWeaponType()
 	return equippedWeaponPTR->getWeaponType();
 }
 
+bool enemy::getIsBurned()
+{
+	return isBurned;
+}
+
 //set
 
 void enemy::dealSelfDamage(int oppDMG)
@@ -78,6 +84,11 @@ void enemy::setEquipWeapon(weapon& w)
 void enemy::setHealth(int num)
 {
 	health = num;
+}
+
+void enemy::setIsBurned(bool b)
+{
+	isBurned = b;
 }
 
 //gameplay

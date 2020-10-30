@@ -16,7 +16,7 @@ private:
 	int potions;
 	//int damage;
 	weapon* equippedWeaponPTR;
-	magicT* equippedMagicPTR;
+	fireMagic* fireMagicPTR;
 	string name;
 	//enemy* enemyPTR;//might not need these
 
@@ -47,6 +47,14 @@ public:
 
 	int getCritMultiply();
 
+	string getMagicType();
+
+	int getMagicHitRate();
+
+	int getMagicDamage();
+
+	int getFireDOTdmg();
+
 	//set
 	void dealSelfDamage(int);
 
@@ -54,7 +62,7 @@ public:
 
 	void setEquipWeapon(weapon*);
 
-	void setMagicEquip(magicT*);
+	void setMagicEquip(fireMagic*);
 
 	void setName(string userN);
 
@@ -69,6 +77,8 @@ public:
 	bool didItHit(int);
 
 	bool critCheck(int);
+
+	bool didEnemyBurn();
 
 	//debug or testing
 	void display();

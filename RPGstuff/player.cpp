@@ -13,7 +13,7 @@ player::player()
 	//damage = 0;
 
 	weapon* equippedWeaponPTR = nullptr; 
-	magicT* equippedMagicPTR = nullptr;
+	fireMagic* fireMagicPTR = nullptr;
 	name = "";
 	//enemy* enemyPTR = nullptr;//might not need
 }
@@ -86,6 +86,33 @@ int player::getCritMultiply()
 	return equippedWeaponPTR->getCritMult();
 }
 
+string player::getMagicType()
+{
+	if (!(fireMagicPTR == nullptr))
+		return fireMagicPTR->getMagicType();
+	else
+		return "no magic type";
+}
+
+int player::getMagicHitRate()
+{
+	if (!(fireMagicPTR == nullptr))
+	{
+		return fireMagicPTR->getHitRate();
+	}
+}
+
+int player::getMagicDamage()
+{
+	if (!(fireMagicPTR == nullptr))
+		return fireMagicPTR->getDMG();
+}
+
+int player::getFireDOTdmg()
+{
+	return fireMagicPTR->getDOTdmg();
+}
+
 
 //set
 void player::dealSelfDamage(int oppDMG)
@@ -106,9 +133,9 @@ void player::setEquipWeapon(weapon* wPTR)
 	//damage = equippedWeaponPTR->getDamage();
 }
 
-void player::setMagicEquip(magicT* mPTR)
+void player::setMagicEquip(fireMagic* mPTR) //make overloaded functions with different magictype PTRs
 {
-	equippedMagicPTR = mPTR;
+	fireMagicPTR = mPTR;
 }
 
 void player::setName(string userN)
@@ -189,6 +216,12 @@ void player::attack(enemy* badguyPTR) //delete this maybe
 	}
 }
 
+
+bool player::didEnemyBurn()
+{
+	return fireMagicPTR->didFireStick();
+}
+
 //debug or testing
 
 void player::display()
@@ -202,9 +235,18 @@ void player::display()
 		<< "Weapon crit rate: " << equippedWeaponPTR->getCritRate() << endl
 		<< "Weapon crit multiplier: " << equippedWeaponPTR->getCritMult() << endl
 		<< "Weapon hit percent chance: " << equippedWeaponPTR->getHitRate() << endl;
+	if (!(fireMagicPTR == nullptr))
+	{
+		fireMagicPTR->display();
+	}
+	else
+	{
+		cout << "no magic equipped" << endl;
+	}
+
 
 		/*
-		
+	
 		health = 100;
 	magic = 100;
 	potions = 2;

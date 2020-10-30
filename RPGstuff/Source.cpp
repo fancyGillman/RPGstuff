@@ -67,6 +67,51 @@ void playerAttack(player* playerPTR, enemy* enemyPTR)
 	}
 }
 
+void playerMagicAttack(player* playerPTR, enemy* enemyPTR)
+{
+	cout << playerPTR->getName() << " shoots a " << playerPTR->getMagicType() << "ball at " << enemyPTR->getName() << "." << endl;
+
+	if (playerPTR->didItHit(playerPTR->getMagicHitRate()))
+	{
+		if (false) //put magic crit check here
+		{
+
+		}
+		else
+		{
+			cout << playerPTR->getName() << " hit " << enemyPTR->getName() << "." << endl;
+			enemyPTR->dealSelfDamage(playerPTR->getMagicDamage());
+
+			if (enemyPTR->getHealth() < 0)
+			{
+				enemyPTR->setHealth(0);
+			}
+
+			cout << enemyPTR->getName() << " took " << playerPTR->getMagicDamage() << " damage. They have " << enemyPTR->getHealth() << " health remaining." << endl;
+
+			if (playerPTR->getMagicType() == "fire")
+			{
+				if (playerPTR->didEnemyBurn() && !(enemyPTR->getIsBurned()))
+				{ 
+					enemyPTR->setIsBurned(true);
+					cout << enemyPTR->getName() << " was lit on fire!" << endl;
+				}
+			}
+
+		}
+
+	}
+	else if (!(playerPTR->didItHit(playerPTR->getMagicHitRate())))
+	{
+		cout << playerPTR->getName() << " did not hit " << enemyPTR->getName() << "." << endl;
+	}
+	else
+	{
+		cout << "some error in void playerMagicAttack() in source.cpp";
+	}
+}
+
+
 void enemyAttack(player* playerPTR, enemy* enemyPTR)
 {
 	cout << enemyPTR->getName() << " swings their " << enemyPTR->getWeaponType() << " at " << playerPTR->getName() << "." << endl;
@@ -99,7 +144,6 @@ void battle(player* playerPTR, enemy* enemyPTR)
 {
 	int turnCounter = 1;
 	int userChoice;
-
 	cout << playerPTR->getName() << " is fighting " << enemyPTR->getName() << "." << endl;
 
 
@@ -108,7 +152,7 @@ void battle(player* playerPTR, enemy* enemyPTR)
 	{
 		cout << endl << "Turn #" << turnCounter << endl << endl;
 		cout << "What would you like to do?" << endl;
-		cout << "1. Attack" << endl; //add more options, display stats somewhere
+		cout << "1. Attack" << endl << "2. " << playerPTR->getMagicType() << " magic attack" << endl; //add more options, display stats somewhere
 		cin >> userChoice;
 		cout << endl; //add input validation
 
@@ -121,12 +165,30 @@ void battle(player* playerPTR, enemy* enemyPTR)
 				break;
 			}
 		}
+		else if (userChoice == 2)
+		{
+			playerMagicAttack(playerPTR, enemyPTR);
 
+			if (enemyPTR->getHealth() <= 0)
+			{
+				break;
+			}
+		}
+
+		/*
 		enemyAttack(playerPTR, enemyPTR);
 
 		if (playerPTR->getHealth() <= 0)
 		{
 			break;
+		}
+		*/
+
+		if (enemyPTR->getIsBurned())
+		{
+			enemyPTR->dealSelfDamage(playerPTR->getFireDOTdmg());
+			cout << enemyPTR->getName() << " took " << playerPTR->getFireDOTdmg() << " burn damage. They have "
+				<< enemyPTR->getHealth() << " health remaining." << endl;
 		}
 
 		turnCounter++;
@@ -200,7 +262,7 @@ void magicSelect(player* playerPTR)
 
 	if (userChoice == 1)
 	{
-		
+		playerPTR->setMagicEquip(new fireMagic);
 	}
 	else if (userChoice == 2)
 	{
@@ -230,7 +292,11 @@ void menu(player* playerPTR, enemy* enemyPTR)
 		{
 			nameCharacter(playerPTR);
 			weaponSelect(playerPTR);
+			magicSelect(playerPTR);
+			
 			battle(playerPTR, enemyPTR);
+			
+			
 		}
 		else if (userChoice == 2)
 		{
@@ -247,27 +313,19 @@ void menu(player* playerPTR, enemy* enemyPTR)
 
 
 ///////////MAIN MAIN FUNCTION DO NOT DELETE THIS 
-/*
+
+
 int main()
 {
-	/*
-	weapon* swordPTR = new weapon(25, 50, 2, 85, "sword");
-	player player1(swordPTR);
 	
-	enemy* badGuyPTR = new enemy;
+	//weapon* swordPTR = new weapon(25, 50, 2, 85, "sword");
+	//player player1(swordPTR);
+	
+	//enemy* badGuyPTR = new enemy;
 
-	//new attack function
-	player1.attack(badGuyPTR);
+	
 
 
-
-	//testing rng
-	/*
-	for (int i = 0; i < 500; i++)
-	{
-		player1.attacking(swordOBJ, badGuyOBJ);
-		cout << endl << endl;
-	}
 	
 
 	//delete swordPTR;
@@ -290,31 +348,34 @@ int main()
 
 	return 0;
 }
-*/
+
 
 /////////////////////////////////////////////////////////////////////////
 //MAGIC TEST AREA////////////////////////////////////////////////////////
 
-
+/*
 int main()
 {
+	
 	fireMagic fire;
 	enemy* badguyPTR = new enemy;
 	fire.display();
 	cout << endl << endl;
 	cout << "badguy health is: " << badguyPTR->getHealth() << endl;
-	if (fire.didDOTtick())
+	if (fire.didFireStick())
 	{
 		fire.dealDOTdmg(badguyPTR);
 		cout << "badguy health is now: " << badguyPTR->getHealth() << endl;
 	}
 	else
 	{
-		cout << "fire did not hit" << endl;
+		cout << "badguy did not get burned" << endl;
 	}
+
+	
 	return 0;
 }
-
+*/
 
 
 

@@ -10,6 +10,7 @@ private:
 	int critRate;
 	int hitRate;
 	int MPcost;
+	string magicType;
 	
 public:
 	
@@ -26,6 +27,7 @@ public:
 
 	void setMPcost(int);
 
+	void setMagicType(string);
 	//get
 
 	int getDMG();
@@ -36,4 +38,5 @@ public:
 
 	int getMPcost();
 
+	string getMagicType();
 };

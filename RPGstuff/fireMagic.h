@@ -12,9 +12,9 @@ class fireMagic : public magicGen
 
 private:
 	//store dmg, crit rate, etc values here?
-	int DOTrate = 25;
+	int burnChance = 25;
 	int DOTdmg = 10;
-
+	string magicTypeF = "fire";
 	//enemy* enemyPTR = nullptr;
 
 
@@ -34,14 +34,15 @@ public:
 
 
 	//get
-	int getDOTrate();
+	int getBurnChance();
+
+	int getDOTdmg();
 
 	//gameplay functions
-	bool didDOTtick();
 
 	void dealDOTdmg(enemy*);
 
-
+	bool didFireStick();
 
 	//debug
 	void display();

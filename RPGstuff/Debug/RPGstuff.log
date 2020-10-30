@@ -1,4 +1,2 @@
-﻿  fireMagic.cpp
-C:\Users\Ducky\Homework 2020\RPGstuff\fireMagic.cpp(34,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Ducky\Homework 2020\RPGstuff\fireMagic.cpp(52): warning C4715: 'fireMagic::didDOTtick': not all control paths return a value
+﻿  Source.cpp
   RPGstuff.vcxproj -> C:\Users\Ducky\Homework 2020\RPGstuff\Debug\RPGstuff.exe

@@ -10,25 +10,25 @@ fireMagic::fireMagic()
 	setCritRate(15);
 	setHitRate(50);
 	setMPcost(15);
-	
+	setMagicType(magicTypeF);
 }
-
-
-
-
 
 
 
 //get
-int fireMagic::getDOTrate()
+int fireMagic::getBurnChance()
 {
-	return DOTrate;
+	return burnChance;
+}
+
+int fireMagic::getDOTdmg()
+{
+	return DOTdmg;
 }
 
 
-
 //gameplay functions
-bool fireMagic::didDOTtick()
+bool fireMagic::didFireStick()
 {
 
 	srand(time(0));
@@ -38,12 +38,12 @@ bool fireMagic::didDOTtick()
 	//cout << "rngHold: " << rngHold << endl;
 	//cout << "randNum: " << randNum << endl;
 
-	if (randNum < DOTrate)
+	if (randNum < burnChance)
 	{
 		//cout << "fire dot hit" << endl;
 		return true;
 	}
-	else if (randNum > DOTrate)
+	else if (randNum > burnChance)
 	{
 		//cout << "fire dot did not hit" << endl;
 		return false;
@@ -56,14 +56,18 @@ void fireMagic::dealDOTdmg(enemy* enemyPTR)
 	enemyPTR->dealSelfDamage(getDMG());
 }
 
+
+
+
 //debug
 
 void fireMagic::display()
 {
+	cout << "MagicType: " << magicGen::getMagicType() << endl;
 	cout << "DMG: " << magicGen::getDMG() << endl;
 	cout << "CritRate: " << magicGen::getCritRate() << endl;
 	cout << "HitRate: " << magicGen::getHitRate() << endl;
 	cout << "MPcost: " << magicGen::getMPcost() << endl;
-	cout << "DOTrate: " << DOTrate << endl;
+	cout << "BurnChance: " << burnChance << endl;
 	cout << "DOTdmg: " << DOTdmg << endl;
 }

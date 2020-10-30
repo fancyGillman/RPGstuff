@@ -26,6 +26,11 @@ void magicGen::setMPcost(int n)
 	MPcost = n;
 }
 
+void magicGen::setMagicType(string n)
+{
+	magicType = n;
+}
+
 //get
 int magicGen::getDMG()
 {
@@ -45,4 +50,9 @@ int magicGen::getHitRate()
 int magicGen::getMPcost()
 {
 	return MPcost;
+}
+
+string magicGen::getMagicType()
+{
+	return magicType;
 }

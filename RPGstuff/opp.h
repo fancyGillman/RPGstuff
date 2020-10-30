@@ -12,7 +12,7 @@ private:
 	int damage;
 	string name;
 	weapon* equippedWeaponPTR;
-
+	bool isBurned;
 
 public:
 	enemy();
@@ -32,7 +32,7 @@ public:
 
 	string getWeaponType();
 
-
+	bool getIsBurned();
 	//set
 
 	void dealSelfDamage(int);
@@ -44,6 +44,8 @@ public:
 	void setEquipWeapon(weapon&);
 	
 	void setHealth(int);
+
+	void setIsBurned(bool);
 
 	//gameplay
 
