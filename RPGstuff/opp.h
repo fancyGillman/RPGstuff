@@ -13,6 +13,8 @@ private:
 	string name;
 	weapon* equippedWeaponPTR;
 	bool isBurned;
+	bool isFrozen;
+	int freezeCounter;
 
 public:
 	enemy();
@@ -33,6 +35,8 @@ public:
 	string getWeaponType();
 
 	bool getIsBurned();
+
+	bool getIsFrozen();
 	//set
 
 	void dealSelfDamage(int);
@@ -46,6 +50,10 @@ public:
 	void setHealth(int);
 
 	void setIsBurned(bool);
+
+	void setIsFrozen(bool);
+
+	void setFreezeCounter();
 
 	//gameplay
 

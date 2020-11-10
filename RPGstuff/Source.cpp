@@ -1,9 +1,7 @@
-#include <iostream>
 #include <string>
-#include <ctime>
 #include "player.h"
-#include "opp.h"
-#include "magic.h"
+
+
 using namespace std;
 
 //name character
@@ -17,7 +15,7 @@ using namespace std;
 //set up specific weapon classes as subclasses of weapon, easier to manage stats etc, do this after "completing" this, making this more streamlined can be a new project
 //
 //
-//
+//going to have to convert a lot of numbers to floats if i want any crit rates to be decimals
 //
 //
 //most of these functions should get moved into a gameplay class, player and opp classes are redundant
@@ -69,13 +67,42 @@ void playerAttack(player* playerPTR, enemy* enemyPTR)
 
 void playerMagicAttack(player* playerPTR, enemy* enemyPTR)
 {
-	cout << playerPTR->getName() << " shoots a " << playerPTR->getMagicType() << "ball at " << enemyPTR->getName() << "." << endl;
+	cout << playerPTR->getName() << " used " << playerPTR->getMPcost() << " magic to shoot a " 
+		<< playerPTR->getMagicType() << "ball at " << enemyPTR->getName() << ". " << endl
+		<< playerPTR->minusMagic() << " magic remaining." << endl;
 
 	if (playerPTR->didItHit(playerPTR->getMagicHitRate()))
 	{
-		if (false) //put magic crit check here
+		if (playerPTR->critCheck(playerPTR->getMagicCritRate())) //crit check here
 		{
+			cout << "Critical hit!" << endl;
 
+			cout << playerPTR->getName() << " hit " << enemyPTR->getName() << "." << endl;
+			enemyPTR->dealSelfDamage(playerPTR->getMagicDamage() * 2);
+
+			if (enemyPTR->getHealth() < 0)
+			{
+				enemyPTR->setHealth(0);
+			}
+
+			cout << enemyPTR->getName() << " took " << playerPTR->getMagicDamage() * playerPTR->get_mCritMultiply() << " damage. They have " << enemyPTR->getHealth() << " health remaining." << endl;
+
+			if (playerPTR->getMagicType() == "fire")
+			{
+				if (playerPTR->didEnemyBurn() && !(enemyPTR->getIsBurned()))
+				{
+					enemyPTR->setIsBurned(true);
+					cout << enemyPTR->getName() << " was lit on fire!" << endl;
+				}
+			}
+			else if (playerPTR->getMagicType() == "ice") 
+			{
+				if (playerPTR->didEnemyFreeze() && !(enemyPTR->getIsFrozen()))
+				{
+					enemyPTR->setIsFrozen(true);
+					cout << enemyPTR->getName() << " was frozen!" << endl;
+				}
+			}
 		}
 		else
 		{
@@ -95,6 +122,15 @@ void playerMagicAttack(player* playerPTR, enemy* enemyPTR)
 				{ 
 					enemyPTR->setIsBurned(true);
 					cout << enemyPTR->getName() << " was lit on fire!" << endl;
+				}
+
+			}
+			else if (playerPTR->getMagicType() == "ice")
+			{
+				if (playerPTR->didEnemyFreeze() && !(enemyPTR->getIsFrozen()))
+				{
+					enemyPTR->setIsFrozen(true);
+					cout << enemyPTR->getName() << " was frozen!" << endl;
 				}
 			}
 
@@ -167,6 +203,13 @@ void battle(player* playerPTR, enemy* enemyPTR)
 		}
 		else if (userChoice == 2)
 		{
+			if (playerPTR->getMagic() < playerPTR->getMPcost())
+			{
+				cout << "Not enough magic!" << endl;
+				continue;
+			}
+
+
 			playerMagicAttack(playerPTR, enemyPTR);
 
 			if (enemyPTR->getHealth() <= 0)
@@ -174,17 +217,27 @@ void battle(player* playerPTR, enemy* enemyPTR)
 				break;
 			}
 		}
-
-		/*
-		enemyAttack(playerPTR, enemyPTR);
+		
+		if (enemyPTR->getIsFrozen()) //freeze check
+		{
+			cout << enemyPTR->getName() << " is frozen!" << endl;
+			//decrement freeze counter here
+		}
+		else if (!(enemyPTR->getIsFrozen()))
+			/*enemyAttack(playerPTR, enemyPTR);
 
 		if (playerPTR->getHealth() <= 0)
 		{
 			break;
 		}
-		*/
 
-		if (enemyPTR->getIsBurned())
+		*/
+	
+
+
+
+
+		if (enemyPTR->getIsBurned()) //burn check
 		{
 			enemyPTR->dealSelfDamage(playerPTR->getFireDOTdmg());
 			cout << enemyPTR->getName() << " took " << playerPTR->getFireDOTdmg() << " burn damage. They have "
@@ -266,7 +319,7 @@ void magicSelect(player* playerPTR)
 	}
 	else if (userChoice == 2)
 	{
-		
+		playerPTR->setMagicEquip(new iceMagic);
 	}
 	else if (userChoice == 3)
 	{
@@ -294,7 +347,9 @@ void menu(player* playerPTR, enemy* enemyPTR)
 			weaponSelect(playerPTR);
 			magicSelect(playerPTR);
 			
-			battle(playerPTR, enemyPTR);
+			playerPTR->display();
+
+			//battle(playerPTR, enemyPTR);
 			
 			
 		}
@@ -330,7 +385,9 @@ int main()
 
 	//delete swordPTR;
 	//delete badGuyPTR;
+	
 
+	
 
 	player* player1PTR = new player();
 	enemy* enemy1PTR = new enemy();
@@ -356,23 +413,10 @@ int main()
 /*
 int main()
 {
-	
-	fireMagic fire;
-	enemy* badguyPTR = new enemy;
-	fire.display();
-	cout << endl << endl;
-	cout << "badguy health is: " << badguyPTR->getHealth() << endl;
-	if (fire.didFireStick())
-	{
-		fire.dealDOTdmg(badguyPTR);
-		cout << "badguy health is now: " << badguyPTR->getHealth() << endl;
-	}
-	else
-	{
-		cout << "badguy did not get burned" << endl;
-	}
+	iceMagic* iceMagicPTR = new iceMagic;
+	iceMagicPTR->display();
 
-	
+
 	return 0;
 }
 */

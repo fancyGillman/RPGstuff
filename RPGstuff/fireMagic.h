@@ -1,9 +1,10 @@
 #pragma once
 
+
+
 #include <iostream>
 #include <ctime>
 #include "magicGen.h"
-#include "opp.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ private:
 	int burnChance = 25;
 	int DOTdmg = 10;
 	string magicTypeF = "fire";
-	//enemy* enemyPTR = nullptr;
+	
 
 
 public:
@@ -40,7 +41,7 @@ public:
 
 	//gameplay functions
 
-	void dealDOTdmg(enemy*);
+	//void dealDOTdmg(enemy*);
 
 	bool didFireStick();
 

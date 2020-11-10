@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="fireMagic.cpp" />
     <ClCompile Include="gameplay.cpp" />
+    <ClCompile Include="iceMagic.cpp" />
     <ClCompile Include="magic.cpp" />
     <ClCompile Include="magicGen.cpp" />
     <ClCompile Include="opp.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fireMagic.h" />
+    <ClInclude Include="iceMagic.h" />
     <ClInclude Include="magic.h" />
     <ClInclude Include="magicGen.h" />
     <ClInclude Include="opp.h" />

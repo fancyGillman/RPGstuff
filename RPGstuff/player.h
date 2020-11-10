@@ -2,8 +2,9 @@
 #include <iostream>
 #include <ctime>
 #include "opp.h"
-#include "weapon.h"
-#include "magic.h"
+#include "magicGen.h"
+#include "iceMagic.h"
+#include "fireMagic.h"
 using namespace std;
 
 
@@ -14,9 +15,13 @@ private:
 	int health;
 	int magic;
 	int potions;
+
+	int MPcost;
+
 	//int damage;
 	weapon* equippedWeaponPTR;
 	fireMagic* fireMagicPTR;
+	iceMagic* iceMagicPTR;
 	string name;
 	//enemy* enemyPTR;//might not need these
 
@@ -55,6 +60,12 @@ public:
 
 	int getFireDOTdmg();
 
+	int getMagicCritRate();
+
+	int getMPcost();
+
+	int get_mCritMultiply();
+
 	//set
 	void dealSelfDamage(int);
 
@@ -64,9 +75,13 @@ public:
 
 	void setMagicEquip(fireMagic*);
 
+	void setMagicEquip(iceMagic*);
+
 	void setName(string userN);
 
 	void setHealth(int);
+
+	void setMPcost(int);
 
 	//gameplay 
 
@@ -79,6 +94,10 @@ public:
 	bool critCheck(int);
 
 	bool didEnemyBurn();
+
+	bool didEnemyFreeze();
+
+	int minusMagic();
 
 	//debug or testing
 	void display();

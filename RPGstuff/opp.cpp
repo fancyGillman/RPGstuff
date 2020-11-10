@@ -14,7 +14,8 @@ enemy::enemy()
 	equippedWeaponPTR = new weapon(25, 50, 2, 85, "Sword");
 	damage = equippedWeaponPTR->getDamage();
 	isBurned = false;
-
+	isFrozen = false;
+	freezeCounter = 0;
 }
 
 enemy::~enemy()
@@ -63,6 +64,10 @@ bool enemy::getIsBurned()
 	return isBurned;
 }
 
+bool enemy::getIsFrozen()
+{
+	return isFrozen;
+}
 //set
 
 void enemy::dealSelfDamage(int oppDMG)
@@ -91,6 +96,15 @@ void enemy::setIsBurned(bool b)
 	isBurned = b;
 }
 
+void enemy::setIsFrozen(bool b)
+{
+	isFrozen = b;
+}
+
+void enemy::setFreezeCounter()
+{
+	freezeCounter = 5;
+}
 //gameplay
 
 bool enemy::didItHit(int wHitRate)

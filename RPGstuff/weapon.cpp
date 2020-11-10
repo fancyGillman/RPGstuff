@@ -2,8 +2,6 @@
 #include <ctime>
 #include "weapon.h"
 
-using namespace std;
-
 weapon::weapon()
 {
 	damage = 0;

@@ -52,6 +52,11 @@ int magicGen::getMPcost()
 	return MPcost;
 }
 
+int magicGen::get_mCritMultiply()
+{
+	return mCritMultiply;
+}
+
 string magicGen::getMagicType()
 {
 	return magicType;

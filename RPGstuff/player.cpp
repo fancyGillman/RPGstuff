@@ -1,7 +1,4 @@
-#include <iostream>
-#include <ctime>
 #include "player.h"
-#include "opp.h"
 
 using namespace std;
 
@@ -11,9 +8,11 @@ player::player()
 	magic = 100;
 	potions = 2;
 	//damage = 0;
+	
 
 	weapon* equippedWeaponPTR = nullptr; 
 	fireMagic* fireMagicPTR = nullptr;
+	iceMagic* iceMagicPTR = nullptr;
 	name = "";
 	//enemy* enemyPTR = nullptr;//might not need
 }
@@ -43,6 +42,7 @@ player::player(string userName)
 player::~player()
 {
 	delete equippedWeaponPTR;
+	delete fireMagicPTR;
 }
 
 //grab
@@ -90,6 +90,8 @@ string player::getMagicType()
 {
 	if (!(fireMagicPTR == nullptr))
 		return fireMagicPTR->getMagicType();
+	else if (!(iceMagicPTR == nullptr))
+		return iceMagicPTR->getMagicType();
 	else
 		return "no magic type";
 }
@@ -100,12 +102,16 @@ int player::getMagicHitRate()
 	{
 		return fireMagicPTR->getHitRate();
 	}
+	else if (!(iceMagicPTR == nullptr))
+		return iceMagicPTR->getHitRate();
 }
 
 int player::getMagicDamage()
 {
 	if (!(fireMagicPTR == nullptr))
 		return fireMagicPTR->getDMG();
+	else if (!(iceMagicPTR == nullptr))
+		return iceMagicPTR->getDMG();
 }
 
 int player::getFireDOTdmg()
@@ -113,8 +119,30 @@ int player::getFireDOTdmg()
 	return fireMagicPTR->getDOTdmg();
 }
 
+int player::getMagicCritRate()
+{
+	if (!(fireMagicPTR == nullptr))
+		return fireMagicPTR->getCritRate();
+	else if (!(iceMagicPTR == nullptr))
+		return iceMagicPTR->getCritRate();
+}
 
-//set
+int player::getMPcost()
+{
+	return MPcost;
+}
+
+int player::get_mCritMultiply()
+{
+	if (!(fireMagicPTR == nullptr))
+		return fireMagicPTR->get_mCritMultiply();
+	else if (!(iceMagicPTR == nullptr))
+		return iceMagicPTR->get_mCritMultiply();
+}
+
+/////END OF GETS/////////////////////////////////////////////////////////////////////////////////
+
+//START OF SETS///////////////////////////////////////////////////////////////////////////////////
 void player::dealSelfDamage(int oppDMG)
 {
 	health = health - oppDMG;
@@ -133,9 +161,18 @@ void player::setEquipWeapon(weapon* wPTR)
 	//damage = equippedWeaponPTR->getDamage();
 }
 
-void player::setMagicEquip(fireMagic* mPTR) //make overloaded functions with different magictype PTRs
+void player::setMagicEquip(fireMagic* fPTR) //make overloaded functions with different magictype PTRs
 {
-	fireMagicPTR = mPTR;
+	fireMagicPTR = fPTR;
+	
+	setMPcost(fPTR->getMPcost());
+}
+
+void player::setMagicEquip(iceMagic* iPTR)
+{
+	iceMagicPTR = iPTR;
+
+	setMPcost(iPTR->getMPcost());
 }
 
 void player::setName(string userN)
@@ -148,7 +185,22 @@ void player::setHealth(int num)
 	health = num;
 }
 
+void player::setMPcost(int n)
+{
+	MPcost = n;
+}
+
 //gameplay
+
+int player::minusMagic()
+{
+	 magic = magic - MPcost;
+
+	 if (magic < 0)
+		 magic = 0;
+
+	 return magic;
+}
 
 bool player::didItHit(int wHitRate)
 {
@@ -222,6 +274,11 @@ bool player::didEnemyBurn()
 	return fireMagicPTR->didFireStick();
 }
 
+bool player::didEnemyFreeze()
+{
+	return iceMagicPTR->didEnemyFreeze();
+}
+
 //debug or testing
 
 void player::display()
@@ -238,6 +295,10 @@ void player::display()
 	if (!(fireMagicPTR == nullptr))
 	{
 		fireMagicPTR->display();
+	}
+	else if (!(iceMagicPTR == nullptr))
+	{
+		iceMagicPTR->display();
 	}
 	else
 	{

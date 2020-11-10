@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+//#include "opp.h"
+
 
 using namespace std;
 
@@ -10,6 +12,7 @@ private:
 	int critRate;
 	int hitRate;
 	int MPcost;
+	int mCritMultiply = 2;
 	string magicType;
 	
 public:
@@ -37,6 +40,8 @@ public:
 	int getHitRate();
 
 	int getMPcost();
+
+	int get_mCritMultiply();
 
 	string getMagicType();
 };

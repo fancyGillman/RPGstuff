@@ -1,2 +1,15 @@
 ﻿  Source.cpp
+  gameplay.cpp
+  iceMagic.cpp
+C:\Users\Ducky\Homework 2020\RPGstuff\iceMagic.cpp(30,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  player.cpp
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(192,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(212,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(109): warning C4715: 'player::getMagicDamage': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(103): warning C4715: 'player::getMagicHitRate': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(120): warning C4715: 'player::getMagicCritRate': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(208): warning C4715: 'player::didItHit': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(225): warning C4715: 'player::critCheck': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\iceMagic.cpp(47): warning C4715: 'iceMagic::didEnemyFreeze': not all control paths return a value
   RPGstuff.vcxproj -> C:\Users\Ducky\Homework 2020\RPGstuff\Debug\RPGstuff.exe
