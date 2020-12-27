@@ -1,7 +1,6 @@
 #include <string>
 #include "player.h"
 
-
 using namespace std;
 
 //name character
@@ -68,7 +67,7 @@ void playerAttack(player* playerPTR, enemy* enemyPTR)
 void playerMagicAttack(player* playerPTR, enemy* enemyPTR)
 {
 	cout << playerPTR->getName() << " used " << playerPTR->getMPcost() << " magic to shoot a " 
-		<< playerPTR->getMagicType() << "ball at " << enemyPTR->getName() << ". " << endl
+		<< playerPTR->getMagicType() << " ball at " << enemyPTR->getName() << ". " << endl
 		<< playerPTR->minusMagic() << " magic remaining." << endl;
 
 	if (playerPTR->didItHit(playerPTR->getMagicHitRate()))
@@ -78,7 +77,7 @@ void playerMagicAttack(player* playerPTR, enemy* enemyPTR)
 			cout << "Critical hit!" << endl;
 
 			cout << playerPTR->getName() << " hit " << enemyPTR->getName() << "." << endl;
-			enemyPTR->dealSelfDamage(playerPTR->getMagicDamage() * 2);
+			enemyPTR->dealSelfDamage(playerPTR->getMagicDamage() * 2); //probably should make crit dmg into a function or something
 
 			if (enemyPTR->getHealth() < 0)
 			{
@@ -101,6 +100,14 @@ void playerMagicAttack(player* playerPTR, enemy* enemyPTR)
 				{
 					enemyPTR->setIsFrozen(true);
 					cout << enemyPTR->getName() << " was frozen!" << endl;
+				}
+			}
+			else if (playerPTR->getMagicType() == "lightning")
+			{
+				if (playerPTR->didEnemyParalyze() && !(enemyPTR->getIsParalyzed()))
+				{
+					enemyPTR->setIsParalyzed(true);
+					cout << enemyPTR->getName() << " was paralyzed!" << endl;
 				}
 			}
 		}
@@ -131,6 +138,14 @@ void playerMagicAttack(player* playerPTR, enemy* enemyPTR)
 				{
 					enemyPTR->setIsFrozen(true);
 					cout << enemyPTR->getName() << " was frozen!" << endl;
+				}
+			}
+			else if (playerPTR->getMagicType() == "lightning")
+			{
+				if (playerPTR->didEnemyParalyze() && !(enemyPTR->getIsParalyzed()))
+				{
+					enemyPTR->setIsParalyzed(true);
+					cout << enemyPTR->getName() << " was paralyzed!" << endl;
 				}
 			}
 
@@ -175,7 +190,6 @@ void enemyAttack(player* playerPTR, enemy* enemyPTR)
 	}
 }
 
-
 void battle(player* playerPTR, enemy* enemyPTR)
 {
 	int turnCounter = 1;
@@ -188,7 +202,8 @@ void battle(player* playerPTR, enemy* enemyPTR)
 	{
 		cout << endl << "Turn #" << turnCounter << endl << endl;
 		cout << "What would you like to do?" << endl;
-		cout << "1. Attack" << endl << "2. " << playerPTR->getMagicType() << " magic attack" << endl; //add more options, display stats somewhere
+		cout << "1. Attack" << endl << "2. " << playerPTR->getMagicType() << " magic attack   MP cost: " << playerPTR->getMPcost() << "    MP remaining: " << playerPTR->getMagic() << endl
+			<< "3. Drink Magic Potion    Magic Potions: INSERT NUMBER HERE" << endl; //add more options, display stats somewhere
 		cin >> userChoice;
 		cout << endl; //add input validation
 
@@ -221,21 +236,44 @@ void battle(player* playerPTR, enemy* enemyPTR)
 		if (enemyPTR->getIsFrozen()) //freeze check
 		{
 			cout << enemyPTR->getName() << " is frozen!" << endl;
-			//decrement freeze counter here
+			enemyPTR->decrementFreezeCounter();
+			//cout << "Freeze counter: " << enemyPTR->getFreezeCounter() << endl << endl;
+
+			if (enemyPTR->getFreezeCounter() <= 0)
+			{
+				cout << enemyPTR->getName() << " has thawed out!" << endl;
+				enemyPTR->setIsFrozen(false);
+			}
+				
 		}
-		else if (!(enemyPTR->getIsFrozen()))
-			/*enemyAttack(playerPTR, enemyPTR);
+
+		if (enemyPTR->getIsParalyzed()) //paralysis check
+		{
+			cout << enemyPTR->getName() << " is paralyzed!" << endl;
+			enemyPTR->decrementParalyzeCounter();
+
+			if (enemyPTR->getParalyzeCounter() <= 0)
+			{
+				cout << enemyPTR->getName() << " is not paralyzed" << endl;
+				enemyPTR->setIsParalyzed(false); //move the stuff that decrements paralysis into paralysisThisTurn
+			}
+		}
+		
+
+		if (!(enemyPTR->getIsFrozen()) && !(enemyPTR->paralysisThisTurn()))
+			//enemyAttack(playerPTR, enemyPTR);
+		
+
+
+
+
+
+
 
 		if (playerPTR->getHealth() <= 0)
 		{
 			break;
 		}
-
-		*/
-	
-
-
-
 
 		if (enemyPTR->getIsBurned()) //burn check
 		{
@@ -323,7 +361,7 @@ void magicSelect(player* playerPTR)
 	}
 	else if (userChoice == 3)
 	{
-		
+		playerPTR->setMagicEquip(new lightMagic);
 	}
 	else
 	{
@@ -347,9 +385,9 @@ void menu(player* playerPTR, enemy* enemyPTR)
 			weaponSelect(playerPTR);
 			magicSelect(playerPTR);
 			
-			playerPTR->display();
+			//playerPTR->display();
 
-			//battle(playerPTR, enemyPTR);
+			battle(playerPTR, enemyPTR);
 			
 			
 		}

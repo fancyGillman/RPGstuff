@@ -92,6 +92,8 @@ string player::getMagicType()
 		return fireMagicPTR->getMagicType();
 	else if (!(iceMagicPTR == nullptr))
 		return iceMagicPTR->getMagicType();
+	else if (!(lightMagicPTR == nullptr))
+		return lightMagicPTR->getMagicType();
 	else
 		return "no magic type";
 }
@@ -104,6 +106,8 @@ int player::getMagicHitRate()
 	}
 	else if (!(iceMagicPTR == nullptr))
 		return iceMagicPTR->getHitRate();
+	else if (!(lightMagicPTR == nullptr))
+		return lightMagicPTR->getHitRate();
 }
 
 int player::getMagicDamage()
@@ -112,6 +116,8 @@ int player::getMagicDamage()
 		return fireMagicPTR->getDMG();
 	else if (!(iceMagicPTR == nullptr))
 		return iceMagicPTR->getDMG();
+	else if (!(lightMagicPTR == nullptr))
+		return lightMagicPTR->getDMG();
 }
 
 int player::getFireDOTdmg()
@@ -125,7 +131,10 @@ int player::getMagicCritRate()
 		return fireMagicPTR->getCritRate();
 	else if (!(iceMagicPTR == nullptr))
 		return iceMagicPTR->getCritRate();
+	else if (!(lightMagicPTR == nullptr))
+		return lightMagicPTR->getCritRate();
 }
+
 
 int player::getMPcost()
 {
@@ -138,9 +147,11 @@ int player::get_mCritMultiply()
 		return fireMagicPTR->get_mCritMultiply();
 	else if (!(iceMagicPTR == nullptr))
 		return iceMagicPTR->get_mCritMultiply();
+	else if (!(lightMagicPTR == nullptr))
+		return lightMagicPTR->get_mCritMultiply();
 }
 
-/////END OF GETS/////////////////////////////////////////////////////////////////////////////////
+/////END OF GRABS/////////////////////////////////////////////////////////////////////////////////
 
 //START OF SETS///////////////////////////////////////////////////////////////////////////////////
 void player::dealSelfDamage(int oppDMG)
@@ -171,6 +182,13 @@ void player::setMagicEquip(fireMagic* fPTR) //make overloaded functions with dif
 void player::setMagicEquip(iceMagic* iPTR)
 {
 	iceMagicPTR = iPTR;
+
+	setMPcost(iPTR->getMPcost());
+}
+
+void player::setMagicEquip(lightMagic* iPTR)
+{
+	lightMagicPTR = iPTR;
 
 	setMPcost(iPTR->getMPcost());
 }
@@ -246,7 +264,6 @@ bool player::attack()
 }
 
 
-
 void player::attack(enemy* badguyPTR) //delete this maybe
 {
 	bool hit = didItHit(equippedWeaponPTR->getHitRate());
@@ -268,7 +285,6 @@ void player::attack(enemy* badguyPTR) //delete this maybe
 	}
 }
 
-
 bool player::didEnemyBurn()
 {
 	return fireMagicPTR->didFireStick();
@@ -277,6 +293,11 @@ bool player::didEnemyBurn()
 bool player::didEnemyFreeze()
 {
 	return iceMagicPTR->didEnemyFreeze();
+}
+
+bool player::didEnemyParalyze()
+{
+	return lightMagicPTR->didEnemyParalyze();
 }
 
 //debug or testing

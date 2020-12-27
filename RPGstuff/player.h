@@ -5,8 +5,9 @@
 #include "magicGen.h"
 #include "iceMagic.h"
 #include "fireMagic.h"
-using namespace std;
+#include "lightMagic.h"
 
+using namespace std;
 
 class player
 {
@@ -22,6 +23,7 @@ private:
 	weapon* equippedWeaponPTR;
 	fireMagic* fireMagicPTR;
 	iceMagic* iceMagicPTR;
+	lightMagic* lightMagicPTR;
 	string name;
 	//enemy* enemyPTR;//might not need these
 
@@ -77,6 +79,8 @@ public:
 
 	void setMagicEquip(iceMagic*);
 
+	void setMagicEquip(lightMagic*);
+
 	void setName(string userN);
 
 	void setHealth(int);
@@ -96,6 +100,8 @@ public:
 	bool didEnemyBurn();
 
 	bool didEnemyFreeze();
+
+	bool didEnemyParalyze();
 
 	int minusMagic();
 

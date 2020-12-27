@@ -15,6 +15,7 @@ enemy::enemy()
 	damage = equippedWeaponPTR->getDamage();
 	isBurned = false;
 	isFrozen = false;
+	isParalyzed = false;
 	freezeCounter = 0;
 }
 
@@ -68,6 +69,21 @@ bool enemy::getIsFrozen()
 {
 	return isFrozen;
 }
+
+bool enemy::getIsParalyzed()
+{
+	return isParalyzed;
+}
+
+int enemy::getFreezeCounter()
+{
+	return freezeCounter;
+}
+
+int enemy::getParalyzeCounter()
+{
+	return paralyzeCounter;
+}
 //set
 
 void enemy::dealSelfDamage(int oppDMG)
@@ -99,11 +115,23 @@ void enemy::setIsBurned(bool b)
 void enemy::setIsFrozen(bool b)
 {
 	isFrozen = b;
+	enemy::setFreezeCounter();
+}
+
+void enemy::setIsParalyzed(bool b)
+{
+	isParalyzed = b;
+	enemy::setParalyzeCounter();
 }
 
 void enemy::setFreezeCounter()
 {
 	freezeCounter = 5;
+}
+
+void enemy::setParalyzeCounter()
+{
+	paralyzeCounter = 5;
 }
 //gameplay
 
@@ -131,4 +159,20 @@ bool enemy::didItHit(int wHitRate)
 bool enemy::attack()
 {
 	return didItHit(equippedWeaponPTR->getHitRate());
+}
+
+int enemy::decrementFreezeCounter()
+{
+	return freezeCounter--;
+}
+
+int enemy::decrementParalyzeCounter()
+{
+	return paralyzeCounter--;
+}
+
+bool enemy::paralysisThisTurn()
+{
+	//some rng to determine if paralyzed this turn
+	return false;
 }

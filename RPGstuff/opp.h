@@ -14,7 +14,9 @@ private:
 	weapon* equippedWeaponPTR;
 	bool isBurned;
 	bool isFrozen;
+	bool isParalyzed;
 	int freezeCounter;
+	int paralyzeCounter;
 
 public:
 	enemy();
@@ -37,6 +39,12 @@ public:
 	bool getIsBurned();
 
 	bool getIsFrozen();
+
+	bool getIsParalyzed();
+
+	int getFreezeCounter();
+
+	int getParalyzeCounter();
 	//set
 
 	void dealSelfDamage(int);
@@ -44,7 +52,6 @@ public:
 
 	void setDamage(int);
 	
-
 	void setEquipWeapon(weapon&);
 	
 	void setHealth(int);
@@ -53,12 +60,22 @@ public:
 
 	void setIsFrozen(bool);
 
+	void setIsParalyzed(bool);
+
 	void setFreezeCounter();
+
+	void setParalyzeCounter();
 
 	//gameplay
 
 	bool attack();
 
 	bool didItHit(int);
+
+	int decrementFreezeCounter();
+
+	int decrementParalyzeCounter();
+
+	bool paralysisThisTurn(); 
 
 };

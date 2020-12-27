@@ -6,21 +6,21 @@
 
 using namespace std;
 
-class iceMagic : public magicGen
+class lightMagic : public magicGen
 {
 private:
 	int dmg = 0;
 	int critRate = 15;
 	int hitRate = 60;
-	int MPcost = 20; 
-	string magicType = "ice";
+	int MPcost = 0;
+	string magicType = "lightning";
 
-	int freezeChance = 25;
+	int paralyzeChance = 15;
 
 
 public:
 
-	iceMagic();
+	lightMagic();
 
 
 	//SET///////////////
@@ -28,8 +28,8 @@ public:
 	//END SET///////////
 
 	//GET///////////////
-	int getFreezeChance();
-		
+	
+
 
 
 
@@ -37,7 +37,8 @@ public:
 
 	//gameplay//////////
 
-	bool didEnemyFreeze();
+	bool didEnemyParalyze();
+	
 
 
 	//end gameplay//////
@@ -50,34 +51,3 @@ public:
 
 
 };
-
-/*
-class iceMagic : public magicGen
-{
-private:
-
-	int freezeChance = 25;
-
-public:
-	iceMagic();
-
-
-
-
-
-
-	int getFreezeChance();
-
-
-
-
-
-	bool didEnemyFreeze();
-
-
-
-
-	void display();
-};
-
-*/
