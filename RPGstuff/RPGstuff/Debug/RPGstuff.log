@@ -1,0 +1,10 @@
+﻿  player.cpp
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(226,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(246,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(121): warning C4715: 'player::getMagicDamage': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(111): warning C4715: 'player::getMagicHitRate': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(136): warning C4715: 'player::getMagicCritRate': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(152): warning C4715: 'player::get_mCritMultiply': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(259): warning C4715: 'player::critCheck': not all control paths return a value
+C:\Users\Ducky\Homework 2020\RPGstuff\player.cpp(242): warning C4715: 'player::didItHit': not all control paths return a value
+  RPGstuff.vcxproj -> C:\Users\Ducky\Homework 2020\RPGstuff\Debug\RPGstuff.exe
